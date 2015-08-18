@@ -1,0 +1,255 @@
+From mario.kleiner at tuebingen.mpg.de  Sat Dec 10 04:18:01 2005
+From: mario.kleiner at tuebingen.mpg.de (Mario Kleiner)
+Date: Sat, 10 Dec 2005 04:18:01 +0100
+Subject: [Osxptb-announce] Bugfix Release 2 for Psychtoolbox 1.0.6 available
+Message-ID: <web-16229695@tuebingen.mpg.de>
+
+Hello everybody,
+
+bugfix release 2 of Psychtoolbox 1.0.6 is available via
+the automatic update service. If your are using
+Psychtoolbox 1.0.6, downloaded via the DownloadPsychtoolbox
+command, you can now upgrade to the latest
+bugfix release by proper use of the UpdatePsychtoolbox.m
+command ("help UpdatePsychtoolbox" is your friend ;) )
+
+Please note that Psychtoolbox-1.0.6 only receives fixes for
+important bugs. All performance improvements and new
+features
+are currently only available in the 'beta' branch and
+soonish
+in the 'stable' branch after final testing & polishing.
+
+Psychtoolbox 1.0.6 is the last release that will work with
+OS-X versions before 10.3.9.
+
+The following bugs have been fixed / enhancements have
+been made:
+
+* Bug 5746 (Synctests failing in OpenGL stereo mode on ATI
+hardware)
+fixed by merging revision 72 of trunk. Screen now accepts a
+flip-
+interval that is twice as long as the display refresh
+interval when
+running in OpenGL flip-frame stereo mode, as this is normal
+ATI
+behaviour (different from NVidia behaviour).
+
+Screen('GetFlipInterval') always reports the minimum
+interval between
+flips, not the monitor refresh interval, although both
+values are
+identical except the stereo case on ATI.
+
+A message is displayed at Screen('OpenWindow') to alert the
+user
+about this behaviour if this situation is detected.
+
+* Bug 5690 fixed by merging revisions 65 and 75 of trunk:
+
+The fix was "corruption on 2nd display of a dual-display
+setup" when
+flipping first display on a gfx card with only 16 MB VRAM.
+This is caused by an out-of-memory condition in that ATI
+gfx card.
+
+The new Screen('Preference', 'ConserveVRAM', 1) setting
+allows to
+work around this driver bug by disabling PTB's use of AUX
+buffers,
+thereby reducing VRAM memory demand.
+
+* Bug in DownloadPsychtoolbox.m fixed: It ignored the
+optional
+targetdirectory argument. Merged bugfix revision 66 of
+trunk
+
+* Merged revisions 58-64 of trunk in order to fix many
+broken
+tests in PsychTests + VBLSynctest as well as some slightly
+broken demos.
+
+* New demos added to the PsychDemos folder which were
+accidently
+left out in the 1.0.6 release...
+
+* RectOfMatrix.m fixed.
+
+-> Still missing is the fix to make GetChar working.
+
+Have fun,
+-Mario Kleiner
+
+
+From mario.kleiner at tuebingen.mpg.de  Mon Dec 12 03:25:52 2005
+From: mario.kleiner at tuebingen.mpg.de (Mario Kleiner)
+Date: Mon, 12 Dec 2005 03:25:52 +0100
+Subject: [Osxptb-announce] Psychtoolbox Stable-branch updated...
+Message-ID: <web-16261088@tuebingen.mpg.de>
+
+Hello,
+
+the 'stable' branch of Psychtoolbox has
+been updated. It now contains a subset
+of the features available in 'beta'. All
+features of beta that are considered
+well-tested and stable enough for
+general consumption are in there. These
+are the features that will definitely be
+part of PTB 1.0.7:
+
+* All bug-fixes from 'beta' and 
+'Psychtoolbox-1.0.6'
+
+* OpenGL low-level transformation
+support. Currently implemented:
+Screen('glPushMatrix'), glPopMatrix,
+glLoadIdentitiy, glScale, glTranslate
+and glRotate.
+
+These functions allow to apply arbitrary
+sequences of translations, rotations and
+scaling to all drawn shapes and images.
+To use them properly you'll need to read
+a chapter of the OpenGL Programming
+guide though. A link to the online book
+is displayed as part of the online help of
+all these new commands.
+
+A simple demo 'DrawSomeMirroredTextOSX'
+illustrates how to use this to draw mirrored
+text...
+
+If you just want to draw rotated images, then
+the 'rotationAngle' parameter of
+Screen('DrawTexture') is the recommended way,
+because this allows PTB to optimize drawing.
+
+* The new Screen('PreloadTextures') command:
+
+This command allows you to upload your textures
+into the fast VRAM of your graphics card before a
+trial starts. This command shouldn't be necessary
+for most purposes, but in case you need to do
+ultra rapid stimulus presentation it may give you a bit
+improved timing. But caution: If used in the wrong
+way, e.g., trying to upload more textures to VRAM
+than fit into it, it may also screw up your presentation
+timing.
+
+Basic rule of thumb for memory consumption of textures:
+
+For pure luminance textures (Grey level images):
+
+mem in MB = width * height / 1024 / 1024
+
+For all other (Luminance+Alpha, RGB, RGB+Alpha):
+
+mem in MB = 4 * width * height / 1024 / 1024
+
+If your gfx-card has 128 MB VRAM, then using 100 MB
+for textures should be possible.
+
+* Arc drawing functions 'DrawArc' 'FrameArc' and
+'FillArc' plus a demo named ArcDemoOSX donated
+by Kerstin Preuschoff (Caltech) as known from OS-9
+PTB.
+
+* A couple of new demos, most notably the
+GazeContingentDemoOSX. This demo generates
+a gaze contingent display: The area around the
+center of fixation is displayed differently than the
+periphery. "Fovea" and periphery are blended into
+each other via a flexible weight mask - currently
+a gaussian aperture. Due to lack of an eye-tracker
+the current mouse pointer position is used as center
+of fixation. The demo makes clever use of alpha
+blending to achieve this at high frame rates,
+currently up to 180 frames per second on a 
+PowerMac G5 1.6 Ghz with NVidia GeforceFX 5200
+graphics card. My local prototype can go up to
+400 Hz on the same hardware.
+
+What is missing with respect to 'beta' branch?
+
+* Support for the new stereo display algorithms like
+Anaglyph stereo. This needs a bit more refinement but
+will be ready soon.
+
+* Quicktime movie playback support: Works well in most
+cases most of the time, but still produces occasional
+hangs of Matlab. So if you need it, try it from beta,
+but don't bet on it, especially not immediately
+before deadlines approach ;-)
+
+Updating goes via the usual UpdatePsychtoolbox command
+or via DownloadPsychtoolbox('stable') if you didn't do it
+already. If you don't know what this means, read:
+
+<http://www.kyb.tuebingen.mpg.de/bu/people/kleinerm/ptbosx/>
+
+Have fun,
+-mario
+
+
+From mario.kleiner at tuebingen.mpg.de  Sat Dec 17 22:47:47 2005
+From: mario.kleiner at tuebingen.mpg.de (Mario Kleiner)
+Date: Sat, 17 Dec 2005 22:47:47 +0100
+Subject: [Osxptb-announce] Bugfix-Release 3 for Psychtoolbox 1.0.6...
+Message-ID: <web-16383634@tuebingen.mpg.de>
+
+Hi,
+
+i've just updated all branches of Psychtoolbox,
+'Psychtoolbox-1.0.6', 'stable', and 'beta' to make
+GetChar sort of work.
+
+This is an improved version of the alpha-release of
+Allen Ingling, but it still has problems and limitations:
+
+* You can't interrupt GetChar with Ctrl-C
+
+* If you open Matlabs M-File editor before first
+invocation of GetChar, Matlab will hang when
+trying to use GetChar. So better don't do it.
+
+* If you activate other windows than the onscreen
+window of PTB during a session (give them keyboard
+focus), GetChar will fail. So i'd recommend using
+GetChar the first time only *after* opening the
+onscreen window and users of dual-display setups,
+don't click around in the Matlab window or other
+windows on your 2nd display when using GetChar.
+
+* More unknown limitations? It worked for me under
+these conditions, but i only did a quick test.
+
+So give it a cautious try. If this isn't a workable
+solution, we'll have to wait for Allen to finish his
+next debug-cycle on GetChar - i can't do anything
+about it, neither predict when this will happen...
+
+Btw. people which have trouble with fMRI scanner
+keyboard triggers (e.g, message 4086) and users
+of the FORP, please try to query your devices via
+GetChar. If they work with GetChar, that would
+confirm the hypothesis mentioned in message
+4088. And you can either use GetChar which has
+higher response latency than KbWait/KbCheck, or
+read the scanner manual/ask the manufacturer of
+the scanner/the FORP to modify their devices so
+that they send virtual keypresses of much longer
+duration, e.g., >> 10 msecs -- as any real human
+user would do with a real keyboard.
+
+The update is available via the UpdatePsychtoolbox.m
+file. If you don't know what this means, please read
+the top of:
+
+<http://www.kyb.tuebingen.mpg.de/bu/people/kleinerm/ptbosx/>
+
+Good luck!
+-mario
+
+

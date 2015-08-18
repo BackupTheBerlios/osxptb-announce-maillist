@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Osxptb-announce] Bugfix-Release 3 for Psychtoolbox 1.0.6...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/osxptb-announce/2005-December/index.html" >
+   <LINK REL="made" HREF="mailto:osxptb-announce%40lists.berlios.de?Subject=Re%3A%20%5BOsxptb-announce%5D%20Bugfix-Release%203%20for%20Psychtoolbox%201.0.6...&In-Reply-To=%3Cweb-16383634%40tuebingen.mpg.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000001.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Osxptb-announce] Bugfix-Release 3 for Psychtoolbox 1.0.6...</H1>
+    <B>Mario Kleiner</B> 
+    <A HREF="mailto:osxptb-announce%40lists.berlios.de?Subject=Re%3A%20%5BOsxptb-announce%5D%20Bugfix-Release%203%20for%20Psychtoolbox%201.0.6...&In-Reply-To=%3Cweb-16383634%40tuebingen.mpg.de%3E"
+       TITLE="[Osxptb-announce] Bugfix-Release 3 for Psychtoolbox 1.0.6...">mario.kleiner at tuebingen.mpg.de
+       </A><BR>
+    <I>Sat Dec 17 22:47:47 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000001.html">[Osxptb-announce] Psychtoolbox Stable-branch updated...
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+i've just updated all branches of Psychtoolbox,
+'Psychtoolbox-1.0.6', 'stable', and 'beta' to make
+GetChar sort of work.
+
+This is an improved version of the alpha-release of
+Allen Ingling, but it still has problems and limitations:
+
+* You can't interrupt GetChar with Ctrl-C
+
+* If you open Matlabs M-File editor before first
+invocation of GetChar, Matlab will hang when
+trying to use GetChar. So better don't do it.
+
+* If you activate other windows than the onscreen
+window of PTB during a session (give them keyboard
+focus), GetChar will fail. So i'd recommend using
+GetChar the first time only *after* opening the
+onscreen window and users of dual-display setups,
+don't click around in the Matlab window or other
+windows on your 2nd display when using GetChar.
+
+* More unknown limitations? It worked for me under
+these conditions, but i only did a quick test.
+
+So give it a cautious try. If this isn't a workable
+solution, we'll have to wait for Allen to finish his
+next debug-cycle on GetChar - i can't do anything
+about it, neither predict when this will happen...
+
+Btw. people which have trouble with fMRI scanner
+keyboard triggers (e.g, message 4086) and users
+of the FORP, please try to query your devices via
+GetChar. If they work with GetChar, that would
+confirm the hypothesis mentioned in message
+4088. And you can either use GetChar which has
+higher response latency than KbWait/KbCheck, or
+read the scanner manual/ask the manufacturer of
+the scanner/the FORP to modify their devices so
+that they send virtual keypresses of much longer
+duration, e.g., &gt;&gt; 10 msecs -- as any real human
+user would do with a real keyboard.
+
+The update is available via the UpdatePsychtoolbox.m
+file. If you don't know what this means, please read
+the top of:
+
+&lt;<A HREF="http://www.kyb.tuebingen.mpg.de/bu/people/kleinerm/ptbosx/">http://www.kyb.tuebingen.mpg.de/bu/people/kleinerm/ptbosx/</A>&gt;
+
+Good luck!
+-mario
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000001.html">[Osxptb-announce] Psychtoolbox Stable-branch updated...
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/osxptb-announce">More information about the Osxptb-announce
+mailing list</a><br>
+</body></html>

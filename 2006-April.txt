@@ -1,0 +1,136 @@
+From mario.kleiner at tuebingen.mpg.de  Tue Apr 18 18:50:07 2006
+From: mario.kleiner at tuebingen.mpg.de (Mario Kleiner)
+Date: Tue, 18 Apr 2006 18:50:07 +0200
+Subject: [Osxptb-announce] PTB BETA-Branch updated: OpenGL4Matlab support, fixes to Priority()
+ and PsychHID()
+Message-ID: <444518BF.2000201@tuebingen.mpg.de>
+
+Hello,
+
+the beta-branch has been updated. It contains a couple of bug-fixes, the 
+most interesting ones:
+
+a) Priority(): Two people reported difficulty with Priority(). I (hope 
+i) made it slightly more robust, although i don't know if it fixes their 
+problem.
+
+b) PsychHID(): Two bugs were fixed that could cause crashes with the DAQ 
+toolbox. Don't know if the fixed bugs were the causes of a few problems 
+reported, because i didn't get feedback from the people that reported 
+the problems.
+
+The most interesting new feature is support for using OpenGL directly in 
+Matlab. This allows you to use OpenGL functions in nearly the same way 
+as you would usually do in the C programming language, so if you always 
+wanted to do 3D computer graphics from Matlab, without entering the 
+dangerous world of C/C++, this is your chance! The toolkit for 
+OpenGL-for-Matlab support was developed and contributed by Prof. Richard 
+F. Murray from York University, Canada -- Thanks a lot!!! I ported it 
+over to M$-Windoze and GNU/Linux and made some smaller improvements.
+
+In the folder Psychtoolbox/PsychDemos/OpenGL4MatlabDemos/ you'll find a 
+couple of preliminary demos on how to use the new feature.
+
+Typing "help PsychOpenGL" will give you more information, instructions, 
+pointers on how to use it. We also provide higher-level helper functions 
+for loading Alias/Wavefront OBJ geometry files and for fast rendering 
+and morphing of 3D objects. Some nice demo for this feature "MorphDemo" 
+was contributed by my colleague Quoc, C. Vuong. Thanks Quoc!
+
+OpenGL support is beta and probably will have some small glitches, but 
+we already use it here in the lab and all the basic stuff seems to work 
+very well. If you find something missing, please report it.
+
+Btw.: The OpenGL PTB for Windows has a nice feature to get your Matlab 
+window back if your script aborted with an error: Press the @ key on 
+your keyboard - This will execute Screen('CloseAll') for you...
+
+Best,
+-mario
+
+
+
+
+From mario.kleiner at tuebingen.mpg.de  Wed Apr 19 20:09:13 2006
+From: mario.kleiner at tuebingen.mpg.de (Mario Kleiner)
+Date: Wed, 19 Apr 2006 20:09:13 +0200
+Subject: [Osxptb-announce] Bugfix to OpenGL support in BETA...
+Message-ID: <44467CC9.7000502@tuebingen.mpg.de>
+
+Hi again,
+
+all bugs mentioned in message 4414 have been fixed in the current BETA. 
+MorphDemo now also should run on old (pre OpenGL-1.2) hardware via use 
+of a slightly slower fallback-path. A new demo MinimalisticOpenGLDemo.m 
+has been added that shows a very simple static scene with a few simple 
+objects and default lighting setup just to demonstrate the very basic 
+steps of getting anything 3D rendered in OpenGL.
+
+Frans Cornelissen contributed a new GetMouse.m implementation for OS-X 
+which should be able to cope with multiple connected mice, he tested it 
+with 3 mice.
+
+Btw. The bug reported in message 4412 (Priority() failing on OS-X) is 
+also fixed.
+
+Enjoy!
+
+
+
+
+From mario.kleiner at tuebingen.mpg.de  Thu Apr 20 19:10:06 2006
+From: mario.kleiner at tuebingen.mpg.de (Mario Kleiner)
+Date: Thu, 20 Apr 2006 19:10:06 +0200
+Subject: [Osxptb-announce] BETA updated again: Fixes to color handling, LoadCLUT support...
+Message-ID: <4447C06E.7070405@tuebingen.mpg.de>
+
+Another update for beta. It contains:
+
+- Fixes to color handling on systems that run on a color-depth of 24 bit 
+or 16 bit, instead of 32 bit: 16 and 24 bit modes don't fail anymore 
+when giving the "wrong" color argument in drawing commands for that 
+mode. This is important for Windows and Linux as they sometimes operate 
+at 24 bpp instead of the 32 bpp default on OS-X. 16 bit modes work, but 
+give a warning/recommendation to switch to 24/32 bpp, because alpha 
+blending won't work in that setting and color accuracy is reduced.
+
+- Fixes to the Offscreen-Windows support, when using exotic pixeldepth 
+settings + color depth + color specs.
+
+- The color argument in Screen('OpenWindow', screenid [color], ...) 
+should now work properly. Up to now it was completely ignored by PTB, 
+imposing the need to do a Screen('FillRect', win, color) to set the 
+background clear color.
+
+Most interesting addition is the restoration of LoadClut functionality. 
+You can load a hardware CLUT in the old OS-9/WinPTB style either via the 
+M-File function LoadClut or via a call to Screen('LoadCLUT', ...).
+
+Restrictions: LoadClut is just a convenience-wrapper around 
+Screen('LoadNormalizedGammaTable'), transforming your clut into the 
+format expected by that function and then calling that function. So its 
+just to keep old code working unmodified. Use LoadNormalizedGammaTable 
+in new code - it works with all DAC resolutions always giving highest 
+attainable precision on your gfx-card, whereas for LoadClut you need to 
+specify the precision of your DAC as a parameter. If you don't spec. 
+it,it will default to only 8-bit resolution (the only safe default)! 
+LoadClut is not suitable for color animation on M$-Windows due to some 
+braindamage in the M$-OS design, but PTB offers better facilities for 
+precisely timed high-perf animation and stimulus presentation for most 
+cases anyway...
+
+LoadClut was coded solely based on the help-text of the old LoadClut, so 
+you need to test it, in case that the documented behaviour deviates from 
+the one actually implemented.
+
+The use of Screen('SetCLUT') and Screen('Gamma') was always strongly 
+discouraged in the old Psychtoolboxes, replicating their behaviour would 
+be a nightmare, so as far as i'm concerned there won't be such an 
+implementation in the new PTB anytime in the future.
+
+best,
+-mario
+
+
+
+

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Osxptb-announce] PTB BETA-Branch updated: OpenGL4Matlab support, fixes to Priority() and PsychHID()
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/osxptb-announce/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:osxptb-announce%40lists.berlios.de?Subject=Re%3A%20%5BOsxptb-announce%5D%20PTB%20BETA-Branch%20updated%3A%20OpenGL4Matlab%20support%2C%20fixes%20to%20Priority%28%29%0A%20and%20PsychHID%28%29&In-Reply-To=%3C444518BF.2000201%40tuebingen.mpg.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000007.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Osxptb-announce] PTB BETA-Branch updated: OpenGL4Matlab support, fixes to Priority() and PsychHID()</H1>
+    <B>Mario Kleiner</B> 
+    <A HREF="mailto:osxptb-announce%40lists.berlios.de?Subject=Re%3A%20%5BOsxptb-announce%5D%20PTB%20BETA-Branch%20updated%3A%20OpenGL4Matlab%20support%2C%20fixes%20to%20Priority%28%29%0A%20and%20PsychHID%28%29&In-Reply-To=%3C444518BF.2000201%40tuebingen.mpg.de%3E"
+       TITLE="[Osxptb-announce] PTB BETA-Branch updated: OpenGL4Matlab support, fixes to Priority() and PsychHID()">mario.kleiner at tuebingen.mpg.de
+       </A><BR>
+    <I>Tue Apr 18 18:50:07 CEST 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000007.html">[Osxptb-announce] Bugfix to OpenGL support in BETA...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+the beta-branch has been updated. It contains a couple of bug-fixes, the 
+most interesting ones:
+
+a) Priority(): Two people reported difficulty with Priority(). I (hope 
+i) made it slightly more robust, although i don't know if it fixes their 
+problem.
+
+b) PsychHID(): Two bugs were fixed that could cause crashes with the DAQ 
+toolbox. Don't know if the fixed bugs were the causes of a few problems 
+reported, because i didn't get feedback from the people that reported 
+the problems.
+
+The most interesting new feature is support for using OpenGL directly in 
+Matlab. This allows you to use OpenGL functions in nearly the same way 
+as you would usually do in the C programming language, so if you always 
+wanted to do 3D computer graphics from Matlab, without entering the 
+dangerous world of C/C++, this is your chance! The toolkit for 
+OpenGL-for-Matlab support was developed and contributed by Prof. Richard 
+F. Murray from York University, Canada -- Thanks a lot!!! I ported it 
+over to M$-Windoze and GNU/Linux and made some smaller improvements.
+
+In the folder Psychtoolbox/PsychDemos/OpenGL4MatlabDemos/ you'll find a 
+couple of preliminary demos on how to use the new feature.
+
+Typing &quot;help PsychOpenGL&quot; will give you more information, instructions, 
+pointers on how to use it. We also provide higher-level helper functions 
+for loading Alias/Wavefront OBJ geometry files and for fast rendering 
+and morphing of 3D objects. Some nice demo for this feature &quot;MorphDemo&quot; 
+was contributed by my colleague Quoc, C. Vuong. Thanks Quoc!
+
+OpenGL support is beta and probably will have some small glitches, but 
+we already use it here in the lab and all the basic stuff seems to work 
+very well. If you find something missing, please report it.
+
+Btw.: The OpenGL PTB for Windows has a nice feature to get your Matlab 
+window back if your script aborted with an error: Press the @ key on 
+your keyboard - This will execute Screen('CloseAll') for you...
+
+Best,
+-mario
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000007.html">[Osxptb-announce] Bugfix to OpenGL support in BETA...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/osxptb-announce">More information about the Osxptb-announce
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Osxptb-announce] PTB BETA UPDATED: Bugfixes and some improvements...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/osxptb-announce/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:osxptb-announce%40lists.berlios.de?Subject=Re%3A%20%5BOsxptb-announce%5D%20PTB%20BETA%20UPDATED%3A%20Bugfixes%20and%20some%20improvements...&In-Reply-To=%3C447B2CB5.6000806%40tuebingen.mpg.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Osxptb-announce] PTB BETA UPDATED: Bugfixes and some improvements...</H1>
+    <B>Mario Kleiner</B> 
+    <A HREF="mailto:osxptb-announce%40lists.berlios.de?Subject=Re%3A%20%5BOsxptb-announce%5D%20PTB%20BETA%20UPDATED%3A%20Bugfixes%20and%20some%20improvements...&In-Reply-To=%3C447B2CB5.6000806%40tuebingen.mpg.de%3E"
+       TITLE="[Osxptb-announce] PTB BETA UPDATED: Bugfixes and some improvements...">mario.kleiner at tuebingen.mpg.de
+       </A><BR>
+    <I>Mon May 29 19:17:41 CEST 2006</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>The OpenGL-PTB beta has been updated again:
+
+Release highlights:
+
+* Experimental GNU/Octave support on Linux:
+
+This is pretty experimental and mostly unsupported for now, although it 
+is used in-house for (pretty demanding) real work already to verify its 
+proper working and usefulness. If you have a recent version of Linux + 
+GNU/Octave version 2.1.73, compiled with the GCC 4.0.1 compiler, then 
+you'll be able to run Psychtoolbox with Linux+Octave on Intel hardware 
+without need for Matlab --&gt; 0$ license costs, no hazzle with license 
+servers, but probably a bit more inconvenient to use for beginners than 
+Matlab -- and not 100% compatible so not suitable for all kinds of studies.
+
+* Support for power-of-two-textures in 'MakeTexture' and new
+
+DriftDemoOSX3 to show application of this for yet another elegant way to 
+create drifting gratings (apart from the pretty elegant way shown by 
+DriftDemoOSX2 or the old-style and inelegant way of DriftDemoOSX :))
+
+This new mode of Screen('MakeTexture', windowPtr, texImage, orientation, 
+enforcpot) works if you set the optional parameter 'enforcepot' to 1 and 
+provide an input matrix with a size that is a power of two, e.g., 
+128x128, 256x256, 512x512, 256x512, ...
+
+Such textures allow for infinite scrolling and repetition - useful for 
+drifting gratings as shown in DriftDemoOSX3. They also allow easy 
+interfacing with OpenGL code written in Matlab, see 
+MinimalisticOpenGLDemo for an example of applying a texture to a 
+rotating earth-globe.
+
+* Fix for Priority.m for restarting update-process on OS-X
+
+Provided by Michael Gross. Fixes cases were Priority failed to restart 
+the OS-X update process in some cases.
+
+I did a few timing tests with Tiger 10.4.6 and Matlab 7.0.1 on a G5 1.6 
+Ghz single cpu. Seems that Apples engineers improved OS-X a lot since 
+last testing with 10.3.x. The timing with a running update process 
+wasn't worse than the timing with update process stopped - no 30 seconds 
+timing spikes anymore. So i'll probably remove the killupdateprocess 
+workaround in some future release whenever OS-X &gt;= 10.4.6 is detected.
+
+* Improved beamsync detection for Intel-Macs.
+
+Should suppress pointless warnings on some new Intel-Macs...
+
+* Improved detection of pixeldepth on Windows Screen('PixelSizes');
+
+* Query support for physical display size Screen('DisplaySize');
+
+Works by reading the info provided by the monitors EDID info, but is not 
+a very accurate means of finding the physical dimensions of a display - 
+use with caution.
+
+* Improved video capture support on Linux.
+
+* RGBA texture bug (wrong color assigments) for Intel-Hardware fixed.
+
+This was found by internal testing, so seems that nobody ever used 4 
+layer RGBA image textures on Windows-PTB...
+
+* MOGL improved: Dynamic memory allocation and glFeedbackBuffer,
+glSelectBuffer support.
+
+Two new OpenGL commands glFeedbackBuffer() and glSelectBuffer() added, 
+moglmorpher and MorphDemo improved to work on older gfx-hardware.
+
+* MinimalisticOpenGLDemo now shows basic texture mapping onto a sphere.
+
+* PsychtoolboxVersion now also reports flavor, SVN revision and 
+modification state + a reference to the Berlios WebSVN interface -- at 
+least if the svn tools are properly installed.
+
+* Small fixes all over the place.
+
+Enjoy &amp; Good luck,
+-mario
+
+-- 
+*********************************************************************
+Mario Kleiner
+Max Planck Institute for Biological Cybernetics
+Spemannstr. 38
+72076 Tuebingen
+Germany
+
+e-mail: <A HREF="https://lists.berlios.de/mailman/listinfo/osxptb-announce">mario.kleiner at tuebingen.mpg.de</A>
+office: +49 (0)7071/601-742
+fax:    +49 (0)7071/601-616
+www:    <A HREF="http://www.kyb.tuebingen.mpg.de/~kleinerm">http://www.kyb.tuebingen.mpg.de/~kleinerm</A>
+*********************************************************************
+&quot;Debugging is twice as hard as writing the code in the first place.
+Therefore, if you write the code as cleverly as possible, you are,
+by definition, not smart enough to debug it.&quot; - Brian W. Kernighan
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/osxptb-announce">More information about the Osxptb-announce
+mailing list</a><br>
+</body></html>

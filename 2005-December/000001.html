@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Osxptb-announce] Psychtoolbox Stable-branch updated...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/osxptb-announce/2005-December/index.html" >
+   <LINK REL="made" HREF="mailto:osxptb-announce%40lists.berlios.de?Subject=Re%3A%20%5BOsxptb-announce%5D%20Psychtoolbox%20Stable-branch%20updated...&In-Reply-To=%3Cweb-16261088%40tuebingen.mpg.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000000.html">
+   <LINK REL="Next"  HREF="000002.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Osxptb-announce] Psychtoolbox Stable-branch updated...</H1>
+    <B>Mario Kleiner</B> 
+    <A HREF="mailto:osxptb-announce%40lists.berlios.de?Subject=Re%3A%20%5BOsxptb-announce%5D%20Psychtoolbox%20Stable-branch%20updated...&In-Reply-To=%3Cweb-16261088%40tuebingen.mpg.de%3E"
+       TITLE="[Osxptb-announce] Psychtoolbox Stable-branch updated...">mario.kleiner at tuebingen.mpg.de
+       </A><BR>
+    <I>Mon Dec 12 03:25:52 CET 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000000.html">[Osxptb-announce] Bugfix Release 2 for Psychtoolbox 1.0.6 available
+</A></li>
+        <LI>Next message: <A HREF="000002.html">[Osxptb-announce] Bugfix-Release 3 for Psychtoolbox 1.0.6...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1">[ date ]</a>
+              <a href="thread.html#1">[ thread ]</a>
+              <a href="subject.html#1">[ subject ]</a>
+              <a href="author.html#1">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+the 'stable' branch of Psychtoolbox has
+been updated. It now contains a subset
+of the features available in 'beta'. All
+features of beta that are considered
+well-tested and stable enough for
+general consumption are in there. These
+are the features that will definitely be
+part of PTB 1.0.7:
+
+* All bug-fixes from 'beta' and 
+'Psychtoolbox-1.0.6'
+
+* OpenGL low-level transformation
+support. Currently implemented:
+Screen('glPushMatrix'), glPopMatrix,
+glLoadIdentitiy, glScale, glTranslate
+and glRotate.
+
+These functions allow to apply arbitrary
+sequences of translations, rotations and
+scaling to all drawn shapes and images.
+To use them properly you'll need to read
+a chapter of the OpenGL Programming
+guide though. A link to the online book
+is displayed as part of the online help of
+all these new commands.
+
+A simple demo 'DrawSomeMirroredTextOSX'
+illustrates how to use this to draw mirrored
+text...
+
+If you just want to draw rotated images, then
+the 'rotationAngle' parameter of
+Screen('DrawTexture') is the recommended way,
+because this allows PTB to optimize drawing.
+
+* The new Screen('PreloadTextures') command:
+
+This command allows you to upload your textures
+into the fast VRAM of your graphics card before a
+trial starts. This command shouldn't be necessary
+for most purposes, but in case you need to do
+ultra rapid stimulus presentation it may give you a bit
+improved timing. But caution: If used in the wrong
+way, e.g., trying to upload more textures to VRAM
+than fit into it, it may also screw up your presentation
+timing.
+
+Basic rule of thumb for memory consumption of textures:
+
+For pure luminance textures (Grey level images):
+
+mem in MB = width * height / 1024 / 1024
+
+For all other (Luminance+Alpha, RGB, RGB+Alpha):
+
+mem in MB = 4 * width * height / 1024 / 1024
+
+If your gfx-card has 128 MB VRAM, then using 100 MB
+for textures should be possible.
+
+* Arc drawing functions 'DrawArc' 'FrameArc' and
+'FillArc' plus a demo named ArcDemoOSX donated
+by Kerstin Preuschoff (Caltech) as known from OS-9
+PTB.
+
+* A couple of new demos, most notably the
+GazeContingentDemoOSX. This demo generates
+a gaze contingent display: The area around the
+center of fixation is displayed differently than the
+periphery. &quot;Fovea&quot; and periphery are blended into
+each other via a flexible weight mask - currently
+a gaussian aperture. Due to lack of an eye-tracker
+the current mouse pointer position is used as center
+of fixation. The demo makes clever use of alpha
+blending to achieve this at high frame rates,
+currently up to 180 frames per second on a 
+PowerMac G5 1.6 Ghz with NVidia GeforceFX 5200
+graphics card. My local prototype can go up to
+400 Hz on the same hardware.
+
+What is missing with respect to 'beta' branch?
+
+* Support for the new stereo display algorithms like
+Anaglyph stereo. This needs a bit more refinement but
+will be ready soon.
+
+* Quicktime movie playback support: Works well in most
+cases most of the time, but still produces occasional
+hangs of Matlab. So if you need it, try it from beta,
+but don't bet on it, especially not immediately
+before deadlines approach ;-)
+
+Updating goes via the usual UpdatePsychtoolbox command
+or via DownloadPsychtoolbox('stable') if you didn't do it
+already. If you don't know what this means, read:
+
+&lt;<A HREF="http://www.kyb.tuebingen.mpg.de/bu/people/kleinerm/ptbosx/">http://www.kyb.tuebingen.mpg.de/bu/people/kleinerm/ptbosx/</A>&gt;
+
+Have fun,
+-mario
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000000.html">[Osxptb-announce] Bugfix Release 2 for Psychtoolbox 1.0.6 available
+</A></li>
+	<LI>Next message: <A HREF="000002.html">[Osxptb-announce] Bugfix-Release 3 for Psychtoolbox 1.0.6...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1">[ date ]</a>
+              <a href="thread.html#1">[ thread ]</a>
+              <a href="subject.html#1">[ subject ]</a>
+              <a href="author.html#1">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/osxptb-announce">More information about the Osxptb-announce
+mailing list</a><br>
+</body></html>
